@@ -38,4 +38,6 @@ RUN sudo ./bin/installdependencies.sh
 
 
 COPY --chown=github:github ./entrypoint.sh  .
+RUN chmod +x ./entrypoint.sh
+
 ENTRYPOINT [ "./entrypoint.sh" ]
