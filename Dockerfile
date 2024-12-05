@@ -36,8 +36,7 @@ RUN curl -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSIO
 # Install .net dependancies 
 RUN sudo ./bin/installdependencies.sh
 
-
-COPY --chown=github:github ./entrypoint.sh  .
-RUN chmod +x ./entrypoint.sh
+COPY ./entrypoint.sh .
+RUN chown github:github ./entrypoint.sh && chmod +x ./entrypoint.sh
 
 ENTRYPOINT [ "./entrypoint.sh" ]

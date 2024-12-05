@@ -46,13 +46,13 @@ Once the container is running, Verify that the runner has been registered succes
 
 The runner does need a docker engine supplied before it can be used. You can pass the hosts docker engine with `-v /var/run/docker.sock:/var/run/docker.sock` or use a different docker engine.
 
-## Docker compose example
+## Docker Compose Example
 
-This is an example of how to deploy a runner with `docker compose`. This example uses a container running dind (docker in docker) to use as the underlying docker engine.
+Here’s an example of how to deploy a GitHub Actions runner using **docker compose**. This setup uses Docker-in-Docker (DinD) to provide the underlying Docker engine for the runner container.
 
 ```yml
 services:
-  reistracker-runner:
+  runner:
     build:
       context: .
     environment:
@@ -64,6 +64,17 @@ services:
     privileged: true
     environment:
       DOCKER_TLS_CERTDIR: ""
-    ports:
+    expose:
       - "2375"
 ```
+
+### Explanation
+
+- `github-actions-runner`: The service running the GitHub Actions runner.
+
+  - `DOCKER_HOST=tcp://dind:2375`: Configures the GitHub Actions runner to use the Docker daemon exposed by the dind container.
+  - `depends_on`: Ensures the `github-actions-runner` starts after the `dind` container is ready.
+
+- `dind`: A container running Docker-in-Docker (DinD) to act as the Docker engine for the runner.
+  - `privileged: true`: Allows the dind container to run Docker.
+  - `expose: "2375"`: Exposes the Docker daemon over TCP on port 2375, allowing other containers to interact with it
