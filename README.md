@@ -1,6 +1,6 @@
-# Github Actions Runner
+# Self-hosted Github Actions Runner
 
-This project contains a simple Dockerfile I made that registers a container as a GitHub Actions runner for a repository. The Dockerfile is based on the tutorial by [That DevOps Guy](https://www.youtube.com/watch?v=RcHGqCBofvw).
+This project contains a simple Dockerfile I made that registers a container as a GitHub Actions runner for a repository. The Dockerfile is based on the tutorial by [That DevOps Guy](https://www.youtube.com/watch?v=RcHGqCBofvw). [More info](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners) on self-hosted runners
 
 # How to use
 
@@ -45,6 +45,8 @@ Once the container is running, Verify that the runner has been registered succes
 ## Restrictions
 
 The runner does need a docker engine supplied before it can be used. You can pass the hosts docker engine with `-v /var/run/docker.sock:/var/run/docker.sock` or use a different docker engine.
+
+Also it is not recommended to add self-hosted runners to a public repo. Here for [more info](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners#self-hosted-runner-security) about self-hosted runner security.
 
 ## Docker Compose Example
 
