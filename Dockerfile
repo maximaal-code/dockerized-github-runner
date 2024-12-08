@@ -29,7 +29,7 @@ RUN useradd -m github && \
     echo "%sudo ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # setup github runner
-# USER github
+USER github
 WORKDIR /actions-runner
 # Download the latest runner package
 RUN curl -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz | tar xz
@@ -38,9 +38,9 @@ RUN sudo ./bin/installdependencies.sh
 
 # Setup workdir
 RUN sudo mkdir /work
-# RUN sudo chown github /work
+RUN sudo chown github /work
 
-# COPY --chown=github:github ./entrypoint.sh .
+COPY --chown=github:github ./entrypoint.sh .
 COPY ./entrypoint.sh .
 RUN chmod +x ./entrypoint.sh
 
