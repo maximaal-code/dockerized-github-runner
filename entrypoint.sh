@@ -1,13 +1,19 @@
 #!/bin/bash
+registration_url="https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPOSITORY}/actions/runners/registration-token"
+echo "Requesting registration URL at '${registration_url}'"
+
+payload=$(curl -sX POST -H "Authorization: token ${GITHUB_PERSONAL_TOKEN}" ${registration_url})
+export RUNNER_TOKEN=$(echo $payload | jq .token --raw-output)
+
 ./config.sh \
-    --url ${GITHUB_REPO_URL} \
-    --token ${GITHUB_RUNNER_TOKEN} \
+    --url https://github.com/${GITHUB_OWNER}/${GITHUB_REPOSITORY} \
+    --token ${RUNNER_TOKEN} \
     --work "/work" \
     --unattended \
     --replace
 
 remove() {
-    ./config.sh remove --unattended --token "${GITHUB_RUNNER_TOKEN}"
+    ./config.sh remove --unattended --token "${RUNNER_TOKEN}"
 }
 
 trap 'remove; exit 130' INT
