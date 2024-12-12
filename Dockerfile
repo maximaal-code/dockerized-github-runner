@@ -37,11 +37,10 @@ RUN curl -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSIO
 RUN sudo ./bin/installdependencies.sh
 
 # Setup workdir
-RUN sudo mkdir /work
+RUN sudo mkdir -p /work && chmod 777 /work
 RUN sudo chown github /work
 
 COPY --chown=github:github ./entrypoint.sh .
-COPY ./entrypoint.sh .
 RUN chmod +x ./entrypoint.sh
 
 ENTRYPOINT [ "./entrypoint.sh" ]
