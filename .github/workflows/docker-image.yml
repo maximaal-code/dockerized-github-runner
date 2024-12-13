@@ -25,6 +25,3 @@ jobs:
 
     - name: Push the Docker image
       run: docker push maximaaldocker/github-runner:latest
-
-    - name: Display Docker image link
-      run: echo "Docker images pushed to Docker Hub https://hub.docker.com/r/maximaaldocker/github-runner/tags"
