@@ -8,7 +8,7 @@ ARG RUNNER_VERSION="2.321.0"
 
 # update packages
 RUN apt-get update && \
-    apt-get install -y ca-certificates curl sudo jq 
+    apt-get install -y ca-certificates curl sudo jq unzip
 RUN install -m 0755 -d /etc/apt/keyrings
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
 RUN chmod a+r /etc/apt/keyrings/docker.asc
